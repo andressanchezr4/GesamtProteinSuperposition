@@ -346,7 +346,7 @@ def uniprot_superimposer_clustering(uniprot_id, uniprot_exact_match=True, prot_f
         preserve_atom_numbering=True)
         print(f'Saved Cluster {index} to {path2save}/superimposed_all_cluster_{index}.pdb')
       
-    return check_models
+    # return check_models
 
 if __name__ == '__main__':
     
@@ -382,16 +382,17 @@ if __name__ == '__main__':
         formato_formal = now.strftime('%d/%m/%Y-%H:%M:%H')
         file_log.write(f'----------{formato_formal}----------\n')
             
-    uniprot2pdb, uniprot2pdb_raw = build_updated_uniprotpdb_dataset(analysis_folder)
-    uniprot2pdb_raw = pd.read_csv(uniprot2pdb_raw)
-    uniprot2pdb = pd.read_csv(uniprot2pdb)
+    if len([i for i in os.listdir(analysis_folder) if 'uniprot2pdb' in i]) == 2:
+        path2uniprot2pdb_raw, path2uniprot2pdb = analysis_folder+'uniprot2pdb_raw.csv', analysis_folder+'uniprot2pdb.csv'
+    else: 
+        path2uniprot2pdb_raw, path2uniprot2pdb = build_updated_uniprotpdb_dataset(path2savetsv)
     
-    tocheck = []
-    failed = []
+    uniprot2pdb_raw = pd.read_csv(path2uniprot2pdb_raw)
+    uniprot2pdb = pd.read_csv(path2uniprot2pdb)
+    
     for nnn, u_i in enumerate(uniprots):
         try:
-            toadd = uniprot_superimposer_clustering(u_i)
-            tocheck.extend(toadd)
+            uniprot_superimposer_clustering(u_i)
         except Exception as e:
             with open(path2log, 'a') as file_log:
                 file_log.write(f'{u_i}: {e}')
