@@ -1,4 +1,4 @@
-# Protein Superposition by Gesamnt 
+# Protein Superposition by Gesamt 
 Given an UniProt ID, GesamtImplementation.py downloads all the pdbs for that UniProt ID and superposes them in a single pdb file. 
 
 It reproduces both the "3D view of superposed structures" with and without ligands for a given uniprot. Example: [O94788](https://www.ebi.ac.uk/pdbe/pdbe-kb/proteins/O94788).
