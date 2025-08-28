@@ -13,6 +13,7 @@ python3 path/to/GesmantImplementation.py --path2analysis_folder /path/where/resu
 - pandas
 - Biopython
 - [protein-cluster-conformation](https://github.com/PDBeurope/protein-cluster-conformers)
+- gesamt executable (downloaded from the [ccp4](https://www.ccp4.ac.uk/) 
 
 ## Disclaimer
 - The order of the cluster does not necesarily match the one given by pdbe-kb webpage, that is, local cluster 0 could correspond with cluster number 3 from the pdbe-kb view.
