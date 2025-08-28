@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on 2025
+Created on Thu Aug 28 15:33:36 2025
 
 @author: andres
 """
@@ -163,7 +163,7 @@ def uniprot_superimposer_clustering(uniprot_id, uniprot_exact_match=True, prot_f
         present_chains = [i.id for i in struct.get_chains() if any(res.get_resname() in substitutions.values() for res in i) and i.id in uniprot_chains]
         prev_input_dictionary[path2save+'/'+f'{p2d.lower()}_updated.cif'] = present_chains
         check_dict.extend([f'{p2d.lower()}_{i}' for i in present_chains])
-        print(f'{nn+1}/{len(all_pdbs)} _updated.cifs Downloaded') 
+        print(f'{nn+1}/{len(all_pdbs)} {p2d}_updated.cif Downloaded') 
     
     print("Download completed.")
     
@@ -176,7 +176,7 @@ def uniprot_superimposer_clustering(uniprot_id, uniprot_exact_match=True, prot_f
     paths2command = ['-c', f'{path2save}/{uniprot_id}_ca_distances', 
                      '-d', f'{path2save}/{uniprot_id}_distance_differences/',
                      '-s', f'{path2save}/{uniprot_id}_cluster_results/']
-    findconformers_comand = ['python3', '/home/andres/Desktop/protein-cluster-conformers/find_conformers.py', '-u', uniprot_id] + intercalated_cif + paths2command
+    findconformers_comand = ['python3', f'{path2pcc}find_conformers.py', '-u', uniprot_id] + intercalated_cif + paths2command
     subprocess.run(findconformers_comand, check = True)
 
     for prot in [i for i in os.listdir(path2save) if i.endswith('.cif')]:
@@ -303,14 +303,15 @@ def uniprot_superimposer_clustering(uniprot_id, uniprot_exact_match=True, prot_f
         preserve_atom_numbering=True)
         print(f'Saved Cluster {index} to {path2save}/superimposed_all_cluster_{index}.pdb')
       
-
-
+        
 if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='Protein Superposition for all the pdbs of a UniProt ID by Gesamt')
     
     parser.add_argument('--path2analysis_folder', type=str, required = True, 
                         help='Folder were the analysis is to be stored.')
+    parser.add_argument('--path2pcc', type=str, required = True, 
+                        help='Local installation of the repository protein-cluster-conformation from the pdbe')
     parser.add_argument('--uniprot_input', type=str, required = True, 
                         help='Either UniProts IDSs separated by a comma (Ej, O14746,O14842,O14965) or the path to a txt file containing in each line a UniProt ID.')
     
@@ -320,6 +321,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     analysis_folder = os.path.join(args.path2analysis_folder, '')
     path2savetsv = analysis_folder + 'my_tsv.tsv.gz'
+    path2pcc = os.path.join(args.path2pcc, '') 
     path2gesamt = args.path2gesamt
     uniprot_input = args.uniprot_input
     
