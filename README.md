@@ -5,7 +5,7 @@ It reproduces both the "3D view of superposed structures" with and without ligan
 
 ## Example of usage
 ```bash
-python3 path/to/GesmantImplementation.py --path2analysis_folder /path/where/results/stored --uniprot_input O94788,034926
+python3 path/to/GesmantImplementation.py --path2analysis_folder /path/where/results/stored --path2pcc /path/to/localprotienclusterconformation_repository --uniprot_input O94788,034926
 ```
 
 ## Requirements 
