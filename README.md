@@ -18,7 +18,7 @@ python3 path/to/GesmantImplementation.py --path2analysis_folder /path/where/resu
 ## Disclaimer
 - The order of the cluster does not necesarily match the one given by pdbe-kb webpage, that is, local cluster 0 could correspond with cluster number 3 from the pdbe-kb view.
 - In the clustering process sometimes errors arise due to chain missmatches. This is most likely due to gesamt issues.
-- There might be some issue do to numpy version nan import. Just go to the protein-cluster-conformation file that throws the error and change the import to -> from numpy import nan as NaN
+- There might be an issue due to a nan import from numpy. Just go to the protein-cluster-conformation file that throws the error and change the import to -> from numpy import nan as NaN
 
 
 
